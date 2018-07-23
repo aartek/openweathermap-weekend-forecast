@@ -1,20 +1,50 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="row country-row" *ngFor="let country of countries">
+  <div class="col-12">
+    <h2 class="d-block p-2 bg-dark text-white">{{country.name}}</h2>
 
+    <div class="row bikepark-row" *ngFor="let bikepark of country.locations">
+      <div class="col-12">
+        <h3 class="d-block p-2 bg-primary text-white">{{bikepark.name}}</h3>
+      </div>
+      <div class="col-md-4">
+        <h4>Friday <small>{{nextFriday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+
+
+        <div *ngIf="bikepark.fridayWeather.length">
+            <span *ngFor="let forecast of bikepark.fridayWeather">
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+            </span>
+        </div>
+        <span *ngIf="!bikepark.fridayWeather.length">N/A</span>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Saturday <small>{{nextSaturday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+
+        <div *ngIf="bikepark.saturdayWeather.length">
+            <span *ngFor="let forecast of bikepark.saturdayWeather">
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+            </span>
+        </div>
+        <span *ngIf="!bikepark.saturdayWeather.length">N/A</span>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Sunday <small>{{nextSunday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+
+        <div *ngIf="bikepark.sundayWeather.length">
+          <span *ngFor="let forecast of bikepark.sundayWeather">
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+            </span>
+        </div>
+        <span *ngIf="!bikepark.sundayWeather.length">N/A</span>
+      </div>
+
+      <div class="col-12 text-right">
+        <small><a href="https://weather.com/pl-PL/pogoda/weekend/l/{{bikepark.latitude}},{{bikepark.longitude}}" target="_blank">Check on weather.com</a></small>
+      </div>
+    </div>
+
+  </div>
+</div>
