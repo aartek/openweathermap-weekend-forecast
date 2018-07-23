@@ -1,27 +1,27 @@
-# WeatherApp
+# openweather-weekend-forecast
+Openweather.org client app displaying weekend weather forecast for the specified locations
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+## Get api key
+Sign up to openweather.org and get the appId: https://openweathermap.org/appid
 
-## Development server
+## Use api key
+Set the retrieved `appId` in the file `src/assets/weather.json` under the `apiKey` property
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Install dependencies
+```
+npm install
+```
 
-## Code scaffolding
+## Run app
+```
+npm start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Go to http://localhost:4200
 
-## Build
+## Build for prod env
+```
+npm run build
+``` 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Code which you should host will be generated in the `dist` directory
