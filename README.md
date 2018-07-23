@@ -1,11 +1,11 @@
-# openweather-weekend-forecast
-Openweather.org client app displaying weekend weather forecast for the specified locations
+# openweathermap-weekend-forecast
+Openweathermap.org client app displaying weekend weather forecast for the specified locations
 
 ## Demo
-https://aartek.github.io/openweather-weekend-forecast/
+https://aartek.github.io/openweathermap-weekend-forecast/
 
 ## Get api key
-Sign up to openweather.org and get the appId: https://openweathermap.org/appid
+Sign up to openweathermap.org and get the appId: https://openweathermap.org/appid
 
 ## Use api key
 Set the retrieved `appId` in the file `src/assets/weather.json` under the `apiKey` property
