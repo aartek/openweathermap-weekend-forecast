@@ -1,6 +1,9 @@
 # openweather-weekend-forecast
 Openweather.org client app displaying weekend weather forecast for the specified locations
 
+## Demo
+https://aartek.github.io/openweather-weekend-forecast/
+
 ## Get api key
 Sign up to openweather.org and get the appId: https://openweathermap.org/appid
 
