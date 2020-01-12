@@ -8,7 +8,7 @@ import {Forecast} from "./domain/Forecast"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   countries: Country[] = []
@@ -35,7 +35,7 @@ export class AppComponent {
     this.nextSunday = this.getDate(0)
   }
 
-  loadConfig() {
+  async loadConfig() {
     this.httpClient.get('assets/weather.json').subscribe((data: any) => {
       this.apiKey = data.apiKey
       this.loadCountries(data.countries)
