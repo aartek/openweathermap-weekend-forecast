@@ -22883,7 +22883,7 @@ var TemplateParseVisitor = /** @class */ (function () {
     TemplateParseVisitor.prototype._checkPropertiesInSchema = function (elementName, boundProps) {
         var _this = this;
         // Note: We can't filter out empty expressions before this method,
-        // as we still want to validate them!
+        // as we still want to isValid them!
         return boundProps.filter(function (boundProp) {
             if (boundProp.type === PropertyBindingType.Property &&
                 !_this._schemaRegistry.hasProperty(elementName, boundProp.name, _this._schemas)) {

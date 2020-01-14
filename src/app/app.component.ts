@@ -3,7 +3,12 @@ import {HttpClient} from "@angular/common/http"
 import {Country} from "./domain/Country"
 import {Location} from "./domain/Location"
 import {Forecast} from "./domain/Forecast"
-
+import {ModalService} from "@fundamental-ngx/core";
+import {ConfigModalComponent} from "./components/config-modal/config-modal.component";
+import {AppLoaderService} from "./services/app-loader.service";
+import {ConfigValidatorService} from "./services/config-validator.service";
+import {from, Observable, of} from "rxjs";
+import {flatMap, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -16,40 +21,60 @@ export class AppComponent {
   nextSaturday: Date
   nextSunday: Date
   apiKey: string
+  defaultConfig: any
+  config: any
+  db: any
+  userId: string
+  private static WEATHER_API_KEY: string = 'a5420fb705a75e4664d8947a4c0ad443';
 
+  constructor(private httpClient: HttpClient, private modalService: ModalService,
+              private appLoaderService: AppLoaderService, private configValidator: ConfigValidatorService) {
 
-  getDate(dayIndex) {
-    var today = new Date()
-    if (today.getDay() == dayIndex) {
-      return today
-    }
-    today.setDate(today.getDate() + (dayIndex - 1 - today.getDay() + 7) % 7 + 1)
-    return today
-  }
-
-  constructor(private httpClient: HttpClient) {
-    this.loadConfig()
+    this.db = appLoaderService.database
+    this.userId = appLoaderService.userId
 
     this.nextFriday = this.getDate(5)
     this.nextSaturday = this.getDate(6)
     this.nextSunday = this.getDate(0)
+
+    this.loadConfig()
+
   }
 
   async loadConfig() {
-    this.httpClient.get('assets/weather.json').subscribe((data: any) => {
-      this.apiKey = data.apiKey
-      this.loadCountries(data.countries)
+    const defaultConfigRequest: Observable<any> = this.httpClient.get('assets/weather.json');
+
+    defaultConfigRequest.pipe(
+      map(defaultConfig => {
+        this.defaultConfig = defaultConfig
+        return defaultConfig
+      }),
+
+      flatMap(defaultConfig => {
+        if (this.appLoaderService.isAuthorized) {
+          const promise: Promise<any> = this.db.ref(`users/${this.userId}/weather`).once('value')
+          return from(promise)
+            .pipe(
+              map(res => this.configValidator.isValid(res.val()) ? JSON.parse(res.val()) : defaultConfig)
+            )
+        } else {
+          return of(defaultConfig)
+        }
+      }),
+    ).subscribe((config) => {
+      this.config = config
+      this.loadCountries(config.countries)
+
     })
   }
 
   loadCountries(countries: any) {
-    Object.entries(countries).forEach(
-      ([key, countryEntry]) => {
-        let country = new Country(countryEntry['name'])
-        Object.entries(countryEntry['locations']).forEach(([key, location]) =>
-          country.locations.push(new Location(location['name'], location['longitude'], location['latitude'])))
-        this.countries.push(country)
-      })
+    this.countries = countries.map(countryEntry => {
+      const locations = countryEntry['locations'].map(location =>
+        new Location(location['name'], location['longitude'], location['latitude']))
+
+      return new Country(countryEntry['name'], locations)
+    })
 
     this.countries.forEach((country: Country) => {
       country.locations.forEach((location: Location) => {
@@ -59,7 +84,7 @@ export class AppComponent {
   }
 
   loadWeather(location: Location) {
-    const apiKey = this.apiKey
+    const apiKey = AppComponent.WEATHER_API_KEY
 
     const url = `https://api.openweathermap.org/data/2.5/forecast?units=metric&lat=${location.latitude}&lon=${location.longitude}&APPID=${apiKey}`
     this.httpClient.get(url)
@@ -105,5 +130,36 @@ export class AppComponent {
       return groups
     }, {})
   }
+
+  openModal(): void {
+    const modalRef = this.modalService.open(ConfigModalComponent, {
+      data: {
+        defaultConfig: this.defaultConfig,
+        config: this.config
+      },
+      width: '800px',
+    });
+
+
+    modalRef.afterClosed.subscribe(async result => {
+      if (this.appLoaderService.isAuthorized) {
+        await this.appLoaderService.database.ref(`users/${this.userId}/weather`).set(result)
+        this.config = JSON.parse(result)
+        this.loadCountries(this.config.countries)
+      }
+    }, error => {
+      // this.closeReason = 'Modal dismissed with result: ' + error;
+    });
+  }
+
+  getDate(dayIndex) {
+    const today = new Date()
+    if (today.getDay() == dayIndex) {
+      return today
+    }
+    today.setDate(today.getDate() + (dayIndex - 1 - today.getDay() + 7) % 7 + 1)
+    return today
+  }
+
 
 }

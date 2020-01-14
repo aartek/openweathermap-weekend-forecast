@@ -1,76 +1,75 @@
 {
-  "apiKey": "xxxx",
-  "countries": {
-    "Czech": {
+  "countries": [
+    {
       "name": "Czech Republic",
-      "locations": {
-        "Kouty": {
+      "locations": [
+        {
           "name": "Kouty",
           "latitude": "50.101786",
           "longitude": "17.116638"
         },
-        "Koprivna": {
+        {
           "name": "Koprivna",
           "latitude": "50.034173",
           "longitude": "17.308676"
         },
-        "RychlebskeStezky": {
+        {
           "name": "Rychlebske Stezky",
           "latitude": "50.301901",
           "longitude": "17.158454"
         },
-        "JavorovyVrch": {
+        {
           "name": "Javorovy Vrch",
           "latitude": "49.621694",
           "longitude": "18.607586"
         }
-      }
+      ]
     },
-    "Slovakia": {
+    {
       "name": "Slovakia",
-      "locations": {
-        "Ruzomberok": {
+      "locations": [
+        {
           "name": "Ruzomberok",
           "latitude": "49.072713",
           "longitude": "19.284158"
         },
-        "Gruniky": {
+        {
           "name": "Gruniky",
           "latitude": "49.517297",
           "longitude": "19.377864"
         },
-        "Kalnica": {
+        {
           "name": "Kalnica",
           "latitude": "48.755834",
           "longitude": "17.937022"
         }
-      }
+      ]
     },
-    "Poland": {
+    {
       "name": "Poland",
-      "locations": {
-        "Rybnik": {
+      "locations": [
+        {
           "name": "Rybnik",
           "latitude": "50.108968",
           "longitude": "18.545072"
         },
-        "Kasina": {
+        {
           "name": "Kasina",
           "latitude": "49.719046",
           "longitude": "20.152346"
         },
-        "MiedzybrodzieZywieckie": {
+        {
           "name": "Międzybrodzie Żywieckie",
           "latitude": "49.787449",
           "longitude": "19.225976"
         },
-        "Bielsko Biala": {
+        {
           "name": "Bielsko-Biała",
           "latitude": "49.779385",
           "longitude": "19.055338"
         }
-      }
+      ]
     }
-  }
+  ]
 }
 

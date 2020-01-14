@@ -1,0 +1,27 @@
+<fd-modal-header>
+  <h1 fd-modal-title>Configure</h1>
+</fd-modal-header>
+<fd-modal-body>
+  <button class="fd-button--primary" (click)="fillWithExample()">Fill with example</button>
+  <form class="fd-form" [formGroup]="form">
+
+    <div class="fd-form-item">
+      <textarea class="fd-textarea" rows="20" formControlName="json" id="json" [ngClass]="{'is-invalid': form.get('json').errors && (form.touched || form.dirty)}"></textarea>
+      <div *ngIf="form.get('json').errors?.invalidJSON && (form.touched || form.dirty)" class="fd-has-color-accent-2">
+        Invalid JSON
+      </div>
+
+      <div *ngIf="form.get('json').errors?.invalidConfig && !form.get('json').errors.invalidJSON && (form.touched || form.dirty)" class="fd-has-color-accent-2">
+        Incorrect config
+      </div>
+    </div>
+  </form>
+</fd-modal-body>
+<fd-modal-footer>
+  <button class="action-button" fd-button [fdType]="'light'" (click)="this.modalRef.dismiss('cancel')">
+    Cancel
+  </button>
+  <button class="action-button"  fd-button [options]="'emphasized'" (click)="this.close()" [disabled]="form.invalid">
+    Save
+  </button>
+</fd-modal-footer>

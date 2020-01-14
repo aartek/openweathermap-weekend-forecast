@@ -7,54 +7,68 @@
       <p class="fd-action-bar__description">Check weather forecast</p>
     </div>
     <div class="fd-action-bar__actions">
-      <button class=" fd-button--primary sap-icon--action-settings"></button>
+      <button class="fd-button--primary sap-icon--action-settings" (click)="openModal()" *ngIf="appLoaderService.isAuthorized"></button>
     </div>
   </div>
   <div class="fd-page__content fd-has-background-color-neutral-1">
     <section class="fd-section">
+
       <div class="" *ngFor="let country of countries">
 
         <h2 class="">{{country.name}}</h2>
 
-        <div class="fd-container fd-container--fluid bikepark-row" *ngFor="let bikepark of country.locations">
+        <div class="fd-container fd-container--fluid" *ngFor="let bikepark of country.locations">
           <div class="fd-col--12">
             <h3 class="fd-has-background-color-neutral-2">{{bikepark.name}}</h3>
           </div>
-          <div class="fd-col--4">
-            <h4>Friday <small>{{nextFriday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+          <div class="fd-col--4 weather-col">
+            <h4>Friday
+              <small>{{nextFriday | amLocal | amDateFormat: 'DD.MM'}}</small>
+            </h4>
 
             <div *ngIf="bikepark.fridayWeather.length">
             <span *ngFor="let forecast of bikepark.fridayWeather">
-              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
+                   alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
+              | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
             </div>
             <span *ngIf="!bikepark.fridayWeather.length">N/A</span>
           </div>
 
-          <div class="fd-col--4">
-            <h4>Saturday <small>{{nextSaturday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+          <div class="fd-col--4 weather-col">
+            <h4>Saturday
+              <small>{{nextSaturday | amLocal | amDateFormat: 'DD.MM'}}</small>
+            </h4>
 
             <div *ngIf="bikepark.saturdayWeather.length">
             <span *ngFor="let forecast of bikepark.saturdayWeather">
-              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
+                   alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
+              | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
             </div>
             <span *ngIf="!bikepark.saturdayWeather.length">N/A</span>
           </div>
 
-          <div class="fd-col--4">
-            <h4>Sunday <small>{{nextSunday | amLocal | amDateFormat: 'DD.MM'}}</small></h4>
+          <div class="fd-col--4 weather-col">
+            <h4>Sunday
+              <small>{{nextSunday | amLocal | amDateFormat: 'DD.MM'}}</small>
+            </h4>
 
             <div *ngIf="bikepark.sundayWeather.length">
           <span *ngFor="let forecast of bikepark.sundayWeather">
-              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png" alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}} | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
+              <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
+                   alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
+            | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
             </div>
             <span *ngIf="!bikepark.sundayWeather.length">N/A</span>
           </div>
 
           <div class="fd-col--12 text-right">
-            <small><a href="https://weather.com/pl-PL/pogoda/weekend/l/{{bikepark.latitude}},{{bikepark.longitude}}" target="_blank">Check on weather.com</a></small>
+            <small><a href="https://weather.com/pl-PL/pogoda/weekend/l/{{bikepark.latitude}},{{bikepark.longitude}}"
+                      target="_blank">Check on weather.com</a></small>
           </div>
         </div>
       </div>
