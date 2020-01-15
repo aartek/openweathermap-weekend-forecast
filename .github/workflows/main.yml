@@ -12,7 +12,9 @@ jobs:
     
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@firebase
+        uses: actions/checkout@master
+        with:
+          - ref: firebase
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
