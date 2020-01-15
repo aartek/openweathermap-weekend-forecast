@@ -7,7 +7,7 @@
       <p class="fd-action-bar__description">Check weather forecast</p>
     </div>
     <div class="fd-action-bar__actions">
-      <button class="fd-button--primary sap-icon--action-settings" (click)="openModal()" *ngIf="appLoaderService.isAuthorized"></button>
+      <button class="fd-button--primary sap-icon--action-settings" (click)="openModal()" *ngIf="isAuthorized"></button>
     </div>
   </div>
   <div class="fd-page__content fd-has-background-color-neutral-1">

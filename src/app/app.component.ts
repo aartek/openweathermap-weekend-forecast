@@ -25,6 +25,7 @@ export class AppComponent {
   config: any
   db: any
   userId: string
+  isAuthorized: boolean
   private static WEATHER_API_KEY: string = 'a5420fb705a75e4664d8947a4c0ad443';
 
   constructor(private httpClient: HttpClient, private modalService: ModalService,
@@ -32,6 +33,7 @@ export class AppComponent {
 
     this.db = appLoaderService.database
     this.userId = appLoaderService.userId
+    this.isAuthorized = this.appLoaderService.isAuthorized
 
     this.nextFriday = this.getDate(5)
     this.nextSaturday = this.getDate(6)

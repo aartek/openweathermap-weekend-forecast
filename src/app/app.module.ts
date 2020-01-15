@@ -9,12 +9,7 @@ import {ButtonModule, ModalModule} from "@fundamental-ngx/core";
 import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AppLoaderService} from "./services/app-loader.service";
-
-
-
-function init(svc: AppLoaderService) {
-  return () => svc.init();
-}
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -25,6 +20,8 @@ function init(svc: AppLoaderService) {
     BrowserModule,
     HttpClientModule,
     MomentModule,
+    RouterModule.forRoot([{ path: '#', component: AppComponent }],
+      { useHash: true }),
     ModalModule,
     ButtonModule,
     NoopAnimationsModule,
@@ -33,9 +30,10 @@ function init(svc: AppLoaderService) {
   providers: [
     HttpClient,
     AppLoaderService,
-    { provide: APP_INITIALIZER, useFactory: init, deps: [AppLoaderService], multi: true },
+    { provide: APP_INITIALIZER, useFactory: (svc: AppLoaderService) => () => svc.init, deps: [AppLoaderService], multi: true },
 
   ],
-  bootstrap: [AppComponent, ConfigModalComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AppComponent, ConfigModalComponent]
 })
 export class AppModule { }

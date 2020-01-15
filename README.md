@@ -15,34 +15,47 @@ Locations can be specified in the `src/assets/weather.json` file. There is a dic
 
 ```
 {
-  "apiKey": "xxxxxxx",
-  "countries": {
-    "Czech": {
-      "name": "Czech Republic",
-      "locations": {
-        "Kouty": {
-          "name": "Kouty",
-          "latitude": "50.101786",
-          "longitude": "17.116638"
-        },
-        "Koprivna": {
-          "name": "Koprivna",
-          "latitude": "50.034173",
-          "longitude": "17.308676"
-        }
+  {
+    "countries": [
+      {
+        "name": "Czech Republic",
+        "locations": [
+          {
+            "name": "Kouty",
+            "latitude": "50.101786",
+            "longitude": "17.116638"
+          },
+          {
+            "name": "Rychlebske Stezky",
+            "latitude": "50.301901",
+            "longitude": "17.158454"
+          }
+        ]
+      },
+      {
+        "name": "Poland",
+        "locations": [
+          {
+            "name": "Rybnik",
+            "latitude": "50.108968",
+            "longitude": "18.545072"
+          },
+          {
+            "name": "Międzybrodzie Żywieckie",
+            "latitude": "49.787449",
+            "longitude": "19.225976"
+          },
+          {
+            "name": "Bielsko-Biała",
+            "latitude": "49.779385",
+            "longitude": "19.055338"
+          }
+        ]
       }
-    },
-    "Slovakia": {
-      "name": "Slovakia",
-      "locations": {
-        "Ruzomberok": {
-          "name": "Ruzomberok",
-          "latitude": "49.072713",
-          "longitude": "19.284158"
-        }
-      }
-    }
+    ]
   }
+  
+
 }
 
 ```
