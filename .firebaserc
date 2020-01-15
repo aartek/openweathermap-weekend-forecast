@@ -5,8 +5,8 @@
   "targets": {
     "trip-fc58b": {
       "hosting": {
-        "weather": [
-          "weather"
+        "trip-weather": [
+          "trip-weather"
         ]
       }
     }
