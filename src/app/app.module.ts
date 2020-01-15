@@ -30,7 +30,7 @@ import {RouterModule} from "@angular/router";
   providers: [
     HttpClient,
     AppLoaderService,
-    { provide: APP_INITIALIZER, useFactory: (svc: AppLoaderService) => () => svc.init, deps: [AppLoaderService], multi: true },
+    { provide: APP_INITIALIZER, useFactory: (svc: AppLoaderService) => () => svc.init(), deps: [AppLoaderService], multi: true },
 
   ],
   bootstrap: [AppComponent],
