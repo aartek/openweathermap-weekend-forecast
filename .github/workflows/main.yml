@@ -3,7 +3,7 @@ name: deploy_to_firebase_hosting
 on:
   push:
     branches: 
-      - firebase
+      - master
 
 jobs:
   deploy_to_firebase_hosting:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@master
         with:
-          ref: firebase
+          ref: master
 
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
