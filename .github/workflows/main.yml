@@ -2,14 +2,13 @@ name: deploy_to_firebase_hosting
 
 on:
   push:
-    branches: 
-      - master
-
+    branches:
+      - firebase
 jobs:
   deploy_to_firebase_hosting:
 
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout the repository
         uses: actions/checkout@master
@@ -27,7 +26,7 @@ jobs:
           # npm test
         env:
           CI: true
-      
+
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
