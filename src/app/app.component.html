@@ -1,74 +1,78 @@
-<main class="fd-page fd-page__header fd-has-background-color-neutral-2">
-  <div class="fd-action-bar">
-    <div class="fd-action-bar__header">
-      <h3 class="fd-action-bar__title">
-        Weather
-      </h3>
-      <p class="fd-action-bar__description">Check weather forecast</p>
+<main class="fd-page">
+  <header>
+    <div class="fd-action-bar">
+      <div class="fd-action-bar__header">
+        <h3 class="fd-action-bar__title">Weather</h3>
+        <div class="fd-action-bar__actions">
+          <button class="fd-button fd-button--primary" (click)="openModal()" *ngIf="isAuthorized">Settings</button>
+        </div>
+      </div>
+      <p class="fd-action-bar__description">Check the weather forecast</p>
     </div>
-    <div class="fd-action-bar__actions">
-      <button class="fd-button--primary sap-icon--action-settings" (click)="openModal()" *ngIf="isAuthorized"></button>
-    </div>
-  </div>
-  <div class="fd-page__content fd-has-background-color-neutral-1">
+  </header>
+  <div class="fd-page__content">
     <section class="fd-section">
 
-      <div class="" *ngFor="let country of countries">
+      <div class="fd-panel">
+        <div class="fd-panel__body">
+          <div class="" *ngFor="let country of countries">
+            <h2 class="fd-has-margin-top-tiny fd-has-margin-bottom-tiny">{{country.name}}</h2>
 
-        <h2 class="">{{country.name}}</h2>
+            <div class="fd-container fd-container--fluid" *ngFor="let bikepark of country.locations">
+              <div class="fd-col--12">
+                <h3
+                  class="fd-has-background-color-neutral-2 fd-has-margin-top-tiny fd-has-margin-bottom-tiny">{{bikepark.name}}</h3>
+              </div>
+              <div class="fd-col--4 weather-col">
+                <h3 class="fd-has-margin-top-tiny fd-has-margin-bottom-tiny fd-has-margin-top-tiny">Friday
+                  <small>{{nextFriday | amLocal | amDateFormat: 'DD.MM'}}</small>
+                </h3>
 
-        <div class="fd-container fd-container--fluid" *ngFor="let bikepark of country.locations">
-          <div class="fd-col--12">
-            <h3 class="fd-has-background-color-neutral-2">{{bikepark.name}}</h3>
-          </div>
-          <div class="fd-col--4 weather-col">
-            <h4>Friday
-              <small>{{nextFriday | amLocal | amDateFormat: 'DD.MM'}}</small>
-            </h4>
-
-            <div *ngIf="bikepark.fridayWeather.length">
+                <div *ngIf="bikepark.fridayWeather.length">
             <span *ngFor="let forecast of bikepark.fridayWeather">
               <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
                    alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
               | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
-            </div>
-            <span *ngIf="!bikepark.fridayWeather.length">N/A</span>
-          </div>
+                </div>
+                <span *ngIf="!bikepark.fridayWeather.length">N/A</span>
+              </div>
 
-          <div class="fd-col--4 weather-col">
-            <h4>Saturday
-              <small>{{nextSaturday | amLocal | amDateFormat: 'DD.MM'}}</small>
-            </h4>
+              <div class="fd-col--4 weather-col">
+                <h3 class="fd-has-margin-top-tiny fd-has-margin-bottom-tiny">Saturday
+                  <small>{{nextSaturday | amLocal | amDateFormat: 'DD.MM'}}</small>
+                </h3>
 
-            <div *ngIf="bikepark.saturdayWeather.length">
+                <div *ngIf="bikepark.saturdayWeather.length">
             <span *ngFor="let forecast of bikepark.saturdayWeather">
               <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
                    alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
               | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
-            </div>
-            <span *ngIf="!bikepark.saturdayWeather.length">N/A</span>
-          </div>
+                </div>
+                <span *ngIf="!bikepark.saturdayWeather.length">N/A</span>
+              </div>
 
-          <div class="fd-col--4 weather-col">
-            <h4>Sunday
-              <small>{{nextSunday | amLocal | amDateFormat: 'DD.MM'}}</small>
-            </h4>
+              <div class="fd-col--4 weather-col">
+                <h3 class="fd-has-margin-top-tiny fd-has-margin-bottom-tiny">Sunday
+                  <small>{{nextSunday | amLocal | amDateFormat: 'DD.MM'}}</small>
+                </h3>
 
-            <div *ngIf="bikepark.sundayWeather.length">
+                <div *ngIf="bikepark.sundayWeather.length">
           <span *ngFor="let forecast of bikepark.sundayWeather">
               <img class="weather-icon" src="https://openweathermap.org/img/w/{{forecast.icon}}.png"
                    alt="weather-icon">{{forecast.datetime | amLocal | amDateFormat: 'HH:mm'}}
             | {{forecast.temperature | number:'1.0-0'}}&#8451; | {{forecast.weather}} | {{forecast.weatherDesc}}<br/>
             </span>
-            </div>
-            <span *ngIf="!bikepark.sundayWeather.length">N/A</span>
-          </div>
+                </div>
+                <span *ngIf="!bikepark.sundayWeather.length">N/A</span>
+              </div>
 
-          <div class="fd-col--12 text-right">
-            <small><a href="https://weather.com/pl-PL/pogoda/weekend/l/{{bikepark.latitude}},{{bikepark.longitude}}"
-                      target="_blank">Check on weather.com</a></small>
+              <div class="fd-col--12 fd-has-text-align-right">
+                <small><a href="https://weather.com/pl-PL/pogoda/weekend/l/{{bikepark.latitude}},{{bikepark.longitude}}"
+                          target="_blank">Check on weather.com</a></small>
+              </div>
+            </div>
           </div>
         </div>
       </div>
